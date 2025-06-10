@@ -27,4 +27,7 @@ locals {
         }
     }
 
+    # EKS configs
+    eks_version = "1.32"
+
 }

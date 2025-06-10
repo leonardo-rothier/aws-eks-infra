@@ -38,3 +38,11 @@ On locals you can set your configurations, to modify the values that are passed 
 ```bash
     terraform apply
 ```  
+
+5. **Connect to the EKS**  
+We need to update the local kubeconfig with the following command:  
+```bash
+    aws eks update-kubeconfig \
+    --region us-east-1
+    --name develop-test
+```  
