@@ -22,5 +22,5 @@ variable "public_subnet_ids" {
 variable "node_group_instance_types" {
     type = list(string)
     description = "The instance types used for the EKS nodes"
-    default = [ "t3.micro" ]
+    default = [ "t3.small" ]
 }

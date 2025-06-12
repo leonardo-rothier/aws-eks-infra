@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: email-deployment
+  namespace: kubernetes-example
+spec:
+  selector:
+    matchLabels:
+      app: email
+  template:
+    metadata:
+      labels:
+        app: email
+    spec:
+      containers:
+        - name: email-service
+          image: 753835273438.dkr.ecr.us-east-1.amazonaws.com/email-service:latest
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 100m
+            limits:
+              memory: 256Mi
+              cpu: 100m
+          env:
+          - name: GMAIL_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: gmail-credentials
+                key: username
+          - name: GMAIL_APP_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: gmail-credentials
+                key: password
