@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: email-ingress
+  namespace: test-alb
+  annotations:
+    alb.ingress.kubernetes.io/schema: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+spec: 
+  ingressClassName: alb
+  rules:
+    - host: leonardorothier-eks.com
+      http:
+        paths:
+          - path: /
+            pathType: prefix
+            backend:
+              service:
+                name: email-site-service
+                port:
+                  number: 80

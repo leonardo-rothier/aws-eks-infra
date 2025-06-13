@@ -8,7 +8,7 @@ This Terraform project automates the deployment of:
 - EKS cluster with managed node groups
 - IAM roles and policies for EKS
 - Network components (IGW, NAT Gateway, Route Tables)
-- Security groups for cluster communication
+- Setup NLB(Network Load Balancer) in AWS to routes traffic with k8s Ingress controller
 
 ## Prerequisites
 - Terraform >= 1.11
@@ -46,3 +46,20 @@ We need to update the local kubeconfig with the following command:
     --region us-east-1
     --name develop-test
 ```  
+
+6. **Deploy some testing applications**
+I've created 3 options to deploy:
+0 - Testing horizontal pod autoscaling with metric server
+1 - Testing Load Balancer Controller, using NLB(Network Load Balancer) 
+2 - Testing LBC, with ALB(Application Load Balancer) and ingress.  
+
+For just one exposed service is preferable the NLB because it works on layer 4 so it's simpler and will cost less.  
+ALB despite that works on layer 7 (so is more expensive), it can be way more cost effective than NLB if is needed to expose multiple services. The ALB can be used with ingress and instead of provision multiples load balancer, we can use just one for several services.
+
+To test:
+
+```bash
+kubectl apply -f 0-test-hpa-with-metrics/
+kubectl apply -f 1-test-lbc-with-nlb/
+kubectl apply -f 2-test-lbc-with-alb-ingress/
+```

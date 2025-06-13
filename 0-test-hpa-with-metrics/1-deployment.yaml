@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: email-service
-          image: 753835273438.dkr.ecr.us-east-1.amazonaws.com/email-service:latest
+          image: leonardorothier/email-service:v1
           ports:
             - name: http
               containerPort: 8080
