@@ -25,4 +25,6 @@ module "eks_cluster" {
 
     private_subnet_ids = module.eks_network.private_subnet_ids
     public_subnet_ids = module.eks_network.public_subnet_ids
+
+    vpc_id = module.eks_network.vpc_id
 }
