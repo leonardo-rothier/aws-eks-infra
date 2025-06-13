@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "aws_lbc" {
 
       principals {
         type = "Service"
-        identifiers = ["pod.eks.amazonaws.com"]
+        identifiers = ["pods.eks.amazonaws.com"]
       }
 
       actions = [
@@ -23,7 +23,7 @@ resource "aws_iam_role" "aws_lbc" {
 
 # The actual permissions of the new role:
 resource "aws_iam_policy" "aws_lbc" {
-    policy = file("./iam/AWSLoadBalancerController.json")
+    policy = file("${path.module}/iam/AWSLoadBalancerController.json")
     name = "AWSLoadBalancerController"
 }
 
@@ -34,7 +34,7 @@ resource "aws_iam_role_policy_attachment" "aws_lbc" {
 
 # Binds the role to Kubernetes service account:
 resource "aws_eks_pod_identity_association" "aws_lbc" {
-    cluster_name = aws_eks_cluster.eks.eks_name
+    cluster_name = aws_eks_cluster.eks.name
     namespace = "kube-system"
     service_account = "aws-load-balancer-controller"
     role_arn = aws_iam_role.aws_lbc.arn
@@ -54,6 +54,15 @@ resource "helm_release" "aws_lbc" {
         value = aws_eks_cluster.eks.name
     }
 
-    depends_on = [ aws_eks_node_group.general ]
+    set {
+        name = "vpcId"
+        value = var.vpc_id
+    }
+
+    depends_on = [ 
+        aws_eks_node_group.general,
+        aws_eks_pod_identity_association.aws_lbc,
+        aws_iam_role_policy_attachment.aws_lbc
+    ]
 
 }

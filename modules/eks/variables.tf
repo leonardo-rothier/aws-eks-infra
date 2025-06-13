@@ -19,6 +19,11 @@ variable "public_subnet_ids" {
     description = "List of public subnet IDs"
 }
 
+variable "vpc_id" {
+    type = string
+    description = "Cluster's VPC id"
+} 
+
 variable "node_group_instance_types" {
     type = list(string)
     description = "The instance types used for the EKS nodes"
