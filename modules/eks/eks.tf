@@ -41,6 +41,8 @@ resource "aws_eks_cluster" "eks" {
       bootstrap_cluster_creator_admin_permissions = true
     }
 
+    enabled_cluster_log_types = [ "api", "audit", "authenticator" ]
+
     depends_on = [  aws_iam_role_policy_attachment.eks ]
 }
 

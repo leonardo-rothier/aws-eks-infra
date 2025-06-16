@@ -28,6 +28,10 @@ locals {
     }
 
     # EKS configs
-    eks_version = "1.32"
+    eks_version = "1.33"
+
+    # Node group
+    capacity_type = "SPOT"
+    instance_types = ["c5a.large"]
 
 }

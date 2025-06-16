@@ -27,4 +27,6 @@ module "eks_cluster" {
     public_subnet_ids = module.eks_network.public_subnet_ids
 
     vpc_id = module.eks_network.vpc_id
+
+    node_group_capacity_type = local.capacity_type
 }

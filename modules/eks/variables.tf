@@ -9,6 +9,12 @@ variable "eks_version" {
     description = "Latest supported Kubernetes version in AWS"
 }
 
+variable "activate_metrics" {
+    type = bool
+    default = false
+    description = "If you wants the metrics server to be installed on your cluster"
+}
+
 variable "private_subnet_ids" {
     type = list(string)
     description = "List of private subnet IDs"
@@ -28,4 +34,10 @@ variable "node_group_instance_types" {
     type = list(string)
     description = "The instance types used for the EKS nodes"
     default = [ "t3.small" ]
+}
+
+variable "node_group_capacity_type" {
+    type = string
+    description = "The instances capacity type, set SPOT for testing"
+    default = "ON_DEMAND"
 }
