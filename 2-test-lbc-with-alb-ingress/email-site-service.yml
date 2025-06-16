@@ -9,5 +9,5 @@ spec:
     - port: 80
       targetPort: http
   selector:
-    app: email-site
+    app: email
     type: front-end

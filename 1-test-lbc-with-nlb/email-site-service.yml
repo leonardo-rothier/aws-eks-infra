@@ -4,7 +4,7 @@ metadata:
   name: email-site-service
   namespace: test-nlb
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: external #nlb
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb" #nlb
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip # direct to pods
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing # public lb
 
@@ -14,5 +14,5 @@ spec:
     - port: 80
       targetPort: 80
   selector:
-    app: email-site
+    app: email
     type: front-end

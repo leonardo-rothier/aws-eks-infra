@@ -4,7 +4,7 @@ metadata:
   name: email-ingress
   namespace: test-alb
   annotations:
-    alb.ingress.kubernetes.io/schema: internet-facing
+    alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/healthcheck-path: /health
 spec: 
@@ -14,7 +14,7 @@ spec:
       http:
         paths:
           - path: /
-            pathType: prefix
+            pathType: Prefix
             backend:
               service:
                 name: email-site-service

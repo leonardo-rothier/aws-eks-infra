@@ -8,12 +8,12 @@ spec:
   selector:
     matchLabels:
       app: email
-      type: backe-end
+      type: back-end
   template:
     metadata:
       labels:
         app: email
-        type: backe-end
+        type: back-end
     spec:
       containers:
         - name: email-service
